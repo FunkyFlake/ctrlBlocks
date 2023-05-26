@@ -3,6 +3,10 @@ uuid = "d57ef60f-eceb-4bed-8af3-558642879c1f"
 authors = ["Jan Lauble"]
 version = "1.0.0-DEV"
 
+[deps]
+ControlSystemsBase = "aaaaaaaa-a6ca-5380-bf3e-84a91bcd477e"
+Revise = "295af30f-e4ad-537b-8983-00126c2a3abe"
+
 [compat]
 julia = "1.9"
 
