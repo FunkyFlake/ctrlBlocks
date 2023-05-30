@@ -3,7 +3,15 @@ using Test
 using ControlSystemsBase
 
 @testset "ctrlBlocks.jl" begin
-    pi_ctrl(1, 1)
-    pi_ctrl(1, Ki=1)
-    @test pi_ctrl(1, 1) == tf([1]) + tf([1], [1, 0])
+
+end
+
+@testset "controllers" begin
+    @test pi_ctrl(2, 1) == tf([2]) + tf([2], [1, 0])
+    
+    @test pi_ctrl(2, Ki=3) == tf([2]) + tf([3], [1, 0])
+end
+
+@testset "plants" begin
+    @test pt1(2, 3) == tf([2], [3, 1])
 end
