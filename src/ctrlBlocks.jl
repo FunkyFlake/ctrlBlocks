@@ -7,6 +7,6 @@ include("plants.jl")
 include("controllers.jl")
 
 export pi_ctrl
-export pt1
+export p, pt1
 
 end
