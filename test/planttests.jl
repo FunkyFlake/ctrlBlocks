@@ -29,13 +29,13 @@ using ControlSystemsBase
     ### I
     R = I(2)
     @test R.tf == tf([2], [1, 0])
-    setKi!(R, 1)
+    setK!(R, 1)
     @test R.tf == tf([1], [1, 0])
 
     ### IT1
     R = IT1(2, 3)
     @test R.tf == tf([2], [3, 1, 0])
-    setKi!(R, 1)
+    setK!(R, 1)
     @test R.tf == tf([1], [3, 1, 0])
     setT!(R, 4)
     @test R.tf == tf([1], [4, 1, 0])
@@ -51,7 +51,7 @@ using ControlSystemsBase
     ### ITn
     R = ITn(2, [3, 4])
     @test R.tf == tf([2],[1,0]) * tf([1], [3, 1]) * tf([1], [4, 1])
-    setKi!(R, 1)
+    setK!(R, 1)
     @test R.tf == tf([1],[1,0]) * tf([1], [3, 1]) * tf([1], [4, 1])
     setT!(R, [5, 6])
     @test R.tf == tf([1],[1,0]) * tf([1], [5, 1]) * tf([1], [6, 1])

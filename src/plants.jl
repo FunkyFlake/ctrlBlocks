@@ -40,28 +40,28 @@ setω!(plant::PT2, ω) = (plant.ω = ω; plant.tf = pt2_tf(plant.K, ω, plant.D)
 setD!(plant::PT2, D) = (plant.D = D; plant.tf = pt2_tf(plant.K, plant.ω, D))
 ############################################################################
 mutable struct I <: Plant
-    Ki
+    K
     tf::TransferFunction
 end
 
-I(Ki=1) = I(Ki, i_tf(Ki))
+I(K=1) = I(K, i_tf(K))
 
-i_tf(Ki=1) = tf([Ki], [1, 0])
+i_tf(K=1) = tf([K], [1, 0])
 
-setKi!(plant::I, Ki) = (plant.Ki = Ki; plant.tf = i_tf(Ki))
+setK!(plant::I, K) = (plant.K = K; plant.tf = i_tf(K))
 ############################################################################
 mutable struct IT1 <: Plant
-    Ki
+    K
     T
     tf::TransferFunction
 end
 
-IT1(Ki=1, T=1) = IT1(Ki, T, it1_tf(Ki, T))
+IT1(K=1, T=1) = IT1(K, T, it1_tf(K, T))
 
-it1_tf(Ki=1, T=1) = tf([Ki], [T, 1, 0])
+it1_tf(K=1, T=1) = tf([K], [T, 1, 0])
 
-setKi!(plant::IT1, Ki) = (plant.Ki = Ki; plant.tf = it1_tf(Ki, plant.T))
-setT!(plant::IT1, T) = (plant.T = T; plant.tf = it1_tf(plant.Ki, T))
+setK!(plant::IT1, K) = (plant.K = K; plant.tf = it1_tf(K, plant.T))
+setT!(plant::IT1, T) = (plant.T = T; plant.tf = it1_tf(plant.K, T))
 ############################################################################
 mutable struct PTn <: Plant
     K
@@ -84,24 +84,24 @@ setK!(plant::PTn, K) = (plant.K = K; plant.tf = ptn_tf(K, plant.T))
 setT!(plant::PTn, T::Vector{}) = (plant.T = T; plant.tf = ptn_tf(plant.K, T))
 ############################################################################
 mutable struct ITn <: Plant
-    Ki
+    K
     T::Vector{}
     tf::TransferFunction
 end
 
-ITn(Ki=1, T::Vector{}=[]) = ITn(Ki, T, itn_tf(Ki, T))
+ITn(K=1, T::Vector{}=[]) = ITn(K, T, itn_tf(K, T))
 
-function itn_tf(Ki=1, T=[])
+function itn_tf(K=1, T=[])
     tfs = [tf([1], [T, 1]) for T in T]
-    itn = tf([Ki], [1, 0])
+    itn = tf([K], [1, 0])
     for G in tfs
         itn *= G
     end
     return itn
 end
 
-setKi!(plant::ITn, Ki) = (plant.Ki = Ki; plant.tf = itn_tf(Ki, plant.T))
-setT!(plant::ITn, T::Vector{}) = (plant.T = T; plant.tf = itn_tf(plant.Ki, T))
+setK!(plant::ITn, K) = (plant.K = K; plant.tf = itn_tf(K, plant.T))
+setT!(plant::ITn, T::Vector{}) = (plant.T = T; plant.tf = itn_tf(plant.K, T))
 ############################################################################
 mutable struct Tt <: Plant
     tau
