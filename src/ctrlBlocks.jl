@@ -18,5 +18,6 @@ export Tt, setTau!
 export Dt1, setK!, setT!
 export DTn, setK!, setT!
 export AP1, setK!, setT!
+export APn, setK!, setT!
 
 end

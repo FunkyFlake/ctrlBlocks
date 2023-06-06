@@ -165,3 +165,24 @@ ap1_tf(K=1, T=1) = tf([K]) * tf([-T, 1], [T, 1])
 setK!(plant::AP1, K) = (plant.K = K; plant.tf = ap1_tf(K, plant.T))
 setT!(plant::AP1, T) = (plant.T = T; plant.tf = ap1_tf(plant.K, T))
 ############################################################################
+# n-th order allpass
+mutable struct APn <: Plant 
+    K
+    T::Vector{}
+    tf::TransferFunction
+end
+
+APn(K=1, T::Vector{}=[]) = APn(K, T, apn_tf(K, T))
+
+function apn_tf(K=1, T=[])
+    tfs = [tf([-T, 1], [T, 1]) for T in T]
+    apn = tf([K], [1])
+    for G in tfs
+        apn *= G
+    end
+    return apn
+end
+
+setK!(plant::APn, K) = (plant.K = K; plant.tf = apn_tf(K, plant.T))
+setT!(plant::APn, T::Vector{}) = (plant.T = T; plant.tf = apn_tf(plant.K, T))
+############################################################################

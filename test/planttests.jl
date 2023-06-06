@@ -85,4 +85,12 @@ using ControlSystemsBase
     @test R.tf == tf([1]) * tf([-3, 1], [3, 1])
     setT!(R, 4)
     @test R.tf == tf([1]) * tf([-4, 1], [4, 1])
+
+    # APn
+    R = APn(2, [3, 4])
+    @test R.tf == tf([2]) * tf([-3, 1], [3, 1]) * tf([-4, 1], [4, 1])
+    setK!(R, 1)
+    @test R.tf == tf([1]) * tf([-3, 1], [3, 1]) * tf([-4, 1], [4, 1])
+    setT!(R, [5, 6])
+    @test R.tf == tf([1]) * tf([-5, 1], [5, 1]) * tf([-6, 1], [6, 1])
 end
