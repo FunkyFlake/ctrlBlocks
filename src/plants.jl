@@ -151,3 +151,17 @@ end
 setK!(plant::DTn, K) = (plant.K = K; plant.tf = dtn_tf(K, plant.T))
 setT!(plant::DTn, T::Vector{}) = (plant.T = T; plant.tf = dtn_tf(plant.K, T))
 ############################################################################
+# First order allpass
+mutable struct AP1 <: Plant 
+    K
+    T
+    tf::TransferFunction
+end
+
+AP1(K=1, T=1) = AP1(K, T, ap1_tf(K, T))
+
+ap1_tf(K=1, T=1) = tf([K]) * tf([-T, 1], [T, 1])
+
+setK!(plant::AP1, K) = (plant.K = K; plant.tf = ap1_tf(K, plant.T))
+setT!(plant::AP1, T) = (plant.T = T; plant.tf = ap1_tf(plant.K, T))
+############################################################################
