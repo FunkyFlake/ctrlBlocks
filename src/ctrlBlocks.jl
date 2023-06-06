@@ -6,6 +6,8 @@ using ControlSystemsBase
 include("controllers.jl")
 export PI, setKp!, setTn!
 export PI_parallel, setKp!, setKi!
+export PDT, setKp!, setTv!, setTd!
+export PDT_parallel, setKp!, setKd!, setTd!
 
 include("plants.jl")
 export P, setK!
