@@ -8,6 +8,8 @@ export PI, setKp!, setTn!
 export PI_parallel, setKp!, setKi!
 export PDT, setKp!, setTv!, setTd!
 export PDT_parallel, setKp!, setKd!, setTd!
+export PIDT, setKp!, setTv!, setTd!, setTn!
+export PIDT_parallel, setKp!, setKd!, setTd!, setTn!
 
 include("plants.jl")
 export P, setK!
