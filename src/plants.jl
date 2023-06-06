@@ -118,3 +118,16 @@ tt_tf(tau=1) = delay(tau)
 setTau!(plant::Tt, tau) = (plant.tau = tau; plant.tf = tt_tf(tau))
 pade!(plant::Tt, n=1) = pade(plant.tau, n)
 ############################################################################
+mutable struct Dt1 <: Plant
+    K
+    T
+    tf::TransferFunction
+end
+
+Dt1(K=1, T=1) = Dt1(K, T, dt1_tf(K, T)) 
+
+dt1_tf(K=1, T=1) = tf([K, 0], [T, 1])
+
+setK!(plant::Dt1, K) = (plant.K = K; plant.tf = dt1_tf(K, plant.T))
+setT!(plant::Dt1, T) = (plant.T = T; plant.tf = dt1_tf(plant.K, T))
+############################################################################

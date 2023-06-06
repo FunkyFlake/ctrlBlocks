@@ -15,5 +15,6 @@ export IT1, setK!, setT!
 export PTn, setK!, setT!
 export ITn, setK!, setT!
 export Tt, setTau!
+export Dt1, setK!, setT!
 
 end
