@@ -22,5 +22,6 @@ export APn, setK!, setT!
 
 include("loops.jl")
 export openLoop, closedLoop
+export ctrlDisturbance, outputDisturbance, errorSignal, controlOutput
 
 end
