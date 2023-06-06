@@ -3,7 +3,6 @@ using Test
 using ControlSystemsBase
 
 @testset "controllers" begin
-    @test pi_ctrl(2, 1) == tf([2]) + tf([2], [1, 0])
-    
-    @test pi_ctrl(2, Ki=3) == tf([2]) + tf([3], [1, 0])
+    @test PI(2, 3).tf == tf([2]) * tf([3, 1], [3, 0]) 
+    @test PI_parallel(2,3).tf == tf([2]) + tf([3], [1, 0])
 end

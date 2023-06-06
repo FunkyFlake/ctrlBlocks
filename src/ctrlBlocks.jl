@@ -4,7 +4,8 @@ using Revise
 using ControlSystemsBase
 
 include("controllers.jl")
-export pi_ctrl
+export PI, setKp!, setTn!
+export PI_parallel, setKp!, setKi!
 
 include("plants.jl")
 export P, setK!
