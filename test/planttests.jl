@@ -69,4 +69,12 @@ using ControlSystemsBase
     @test R.tf == tf([1, 0], [3, 1])
     setT!(R, 4)
     @test R.tf == tf([1, 0], [4, 1])
+
+    # DTn
+    R = DTn(2, [3, 4])
+    @test R.tf == tf([2, 0], [3, 1]) * tf([1], [4, 1])
+    setK!(R, 1)
+    @test R.tf == tf([1, 0], [3, 1]) * tf([1], [4, 1])
+    setT!(R, [5, 6])
+    @test R.tf == tf([1, 0], [5, 1]) * tf([1], [6, 1])
 end

@@ -131,3 +131,23 @@ dt1_tf(K=1, T=1) = tf([K, 0], [T, 1])
 setK!(plant::Dt1, K) = (plant.K = K; plant.tf = dt1_tf(K, plant.T))
 setT!(plant::Dt1, T) = (plant.T = T; plant.tf = dt1_tf(plant.K, T))
 ############################################################################
+mutable struct DTn <: Plant
+    K
+    T::Vector{}
+    tf::TransferFunction
+end
+
+DTn(K=1, T::Vector{}=[]) = DTn(K, T, dtn_tf(K, T))
+
+function dtn_tf(K=1, T=[])
+    tfs = [tf([1], [T, 1]) for T in T]
+    dtn = tf([K, 0], [1])
+    for G in tfs
+        dtn *= G
+    end
+    return dtn
+end
+
+setK!(plant::DTn, K) = (plant.K = K; plant.tf = dtn_tf(K, plant.T))
+setT!(plant::DTn, T::Vector{}) = (plant.T = T; plant.tf = dtn_tf(plant.K, T))
+############################################################################
