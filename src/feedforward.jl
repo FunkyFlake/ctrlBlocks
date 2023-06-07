@@ -14,6 +14,9 @@ function staticFilter(Gcl::SysTF)
     end
 end
 
+############################################################################
+# Dynamic Filters for step inputs
+############################################################################
 # PT1 dynamic filter for reference signal - vector version
 # r: reference signal
 # t: timepoints
@@ -21,3 +24,8 @@ end
 filterPT1(ref, t, τ) = ref * (1 .- exp.(-t/τ))
 # u(x,t) for use in lsim or ODE package
 filterPT1(ref, τ) = (x,t) -> [ref * (1 - exp(-t/τ))] 
+############################################################################
+# Ramp filter 
+filterRamp(ref, t, Tend) = ref * min.(1, t ./ Tend)
+filterRamp(ref, Tend) = (x,t) -> [ref * min(1, t / Tend)]
+############################################################################

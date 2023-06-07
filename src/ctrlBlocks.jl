@@ -36,6 +36,6 @@ export compensation, serialPT1
 
 include("feedforward.jl")
 export staticFilter
-export filterPT1
+export filterPT1, filterRamp
 
 end
