@@ -2,7 +2,7 @@ using ctrlBlocks
 using Test
 using ControlSystemsBase
 
-@testset "controllers" begin
+@testset "compensation" begin
     plant = PTn(2, [1.2, 0.5, 0.1]) # n-m = 3
     r = 3
     α = 2.1
