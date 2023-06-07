@@ -34,4 +34,8 @@ export ctrlDisturbance, outputDisturbance, errorSignal, controlOutput
 include("compensation.jl")
 export compensation, serialPT1
 
+include("feedforward.jl")
+export staticFilter
+export filterPT1
+
 end
