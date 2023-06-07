@@ -13,7 +13,11 @@ using ControlSystemsBase
     τ = 1
     w = filterPT1(ref, t, τ)
     @test w == ref * (1 .- exp.(-t/τ))
+   
     Tend = 5
     w = filterRamp(ref, t, Tend)
     @test w == ref * min.(1, t ./ Tend)
+
+    w = filterSqSine(ref, t, Tend)
+    @test w == ref * sin.(π/2 * min.(1, t ./ Tend)).^2
 end
