@@ -1,4 +1,4 @@
-abstract type Plant end
+abstract type Plant <: SysTF end
 ############################################################################
 mutable struct P <: Plant
     K

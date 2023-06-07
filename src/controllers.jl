@@ -1,9 +1,11 @@
+abstract type Controller <: SysTF end
+
 # Standard PI controller: 
 #G = Kp + Ki/s = Kp + Kp/(Tn*s) = Kp(1 + 1/(Tn*s)
 # Kp (1 + Tn*s)
 # -------------
 #     Tn*s  
-mutable struct PI
+mutable struct PI <: Controller
     Kp
     Tn
     tf::TransferFunction
@@ -15,7 +17,7 @@ pi_tf(Kp, Tn) = tf([Kp]) * tf([Tn, 1], [Tn, 0])
 setKp!(ctrl::PI, Kp) = (ctrl.Kp = Kp; ctrl.tf = pi_tf(Kp, ctrl.Tn))
 setTn!(ctrl::PI, Tn) = (ctrl.Tn = Tn; ctrl.tf = pi_tf(ctrl.Kp, Tn))
 
-mutable struct PI_parallel
+mutable struct PI_parallel <: Controller
     Kp
     Ki
     tf::TransferFunction
@@ -32,7 +34,7 @@ setKi!(ctrl::PI_parallel, Ki) = (ctrl.Ki = Ki; ctrl.tf = pi_parallel_tf(ctrl.Kp,
 # Kp (1 + Tn*s)
 # -------------
 #     Tn*s  
-mutable struct PDT
+mutable struct PDT <: Controller
     Kp
     Tv
     Td
@@ -46,7 +48,7 @@ setKp!(ctrl::PDT, Kp) = (ctrl.Kp = Kp; ctrl.tf = pdt_tf(Kp, ctrl.Tv, ctrl.Td))
 setTv!(ctrl::PDT, Tv) = (ctrl.Tv = Tv; ctrl.tf = pdt_tf(ctrl.Kp, Tv, ctrl.Td))
 setTd!(ctrl::PDT, Td) = (ctrl.Td = Td; ctrl.tf = pdt_tf(ctrl.Kp, ctrl.Tv, Td))
 
-mutable struct PDT_parallel
+mutable struct PDT_parallel <: Controller
     Kp
     Kd
     Td
@@ -62,7 +64,7 @@ setTd!(ctrl::PDT_parallel, Td) = (ctrl.Td = Td; ctrl.tf = PDT_parallel_tf(ctrl.K
 ############################################################################
 # Standard PIDT controller:
 #G = Kp + Ki/s + Kd*s/(Td*s+1) = ((Kp*Td + Kd)*s^2 + (Kp+Ki*Td)*s + Ki)/(s*(1 + Td*s)) 
-mutable struct PIDT
+mutable struct PIDT <: Controller
     Kp # different from parallel Kp
     Tn
     Tv
@@ -78,7 +80,7 @@ setTn!(ctrl::PIDT, Tn) = (ctrl.Tn = Tn; ctrl.tf = pidt_tf(ctrl.Kp, Tn, ctrl.Tv, 
 setTv!(ctrl::PIDT, Tv) = (ctrl.Tv = Tv; ctrl.tf = pidt_tf(ctrl.Kp, ctrl.Tn, Tv, ctrl.Td))
 setTd!(ctrl::PIDT, Td) = (ctrl.Td = Td; ctrl.tf = pidt_tf(ctrl.Kp, ctrl.Tn, ctrl.Tv, Td))
 
-mutable struct PIDT_parallel
+mutable struct PIDT_parallel <: Controller
     Kp
     Ki
     Kd

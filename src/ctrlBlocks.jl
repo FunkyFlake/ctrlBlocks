@@ -3,6 +3,8 @@ module ctrlBlocks
 using Revise
 using ControlSystemsBase
 
+abstract type SysTF end
+
 include("controllers.jl")
 export PI, setKp!, setTn!
 export PI_parallel, setKp!, setKi!
