@@ -29,4 +29,7 @@ include("loops.jl")
 export openLoop, closedLoop
 export ctrlDisturbance, outputDisturbance, errorSignal, controlOutput
 
+include("compensation.jl")
+export compensation, serialPT1
+
 end

@@ -3,4 +3,5 @@ using SafeTestsets
     include("planttests.jl")
     include("ctrltests.jl")
     include("looptests.jl")
+    include("comptests.jl")
 end
