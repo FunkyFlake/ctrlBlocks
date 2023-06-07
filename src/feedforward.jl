@@ -1,4 +1,4 @@
-function staticFilter(Gcl::TransferFunction)
+function filterStatic(Gcl::TransferFunction)
     if Gcl(0)[1] == Inf
         throw(error("Closed Loop Transfer Function already has infinite DC gain"))
     else
@@ -6,7 +6,7 @@ function staticFilter(Gcl::TransferFunction)
     end
 end
 
-function staticFilter(Gcl::SysTF)
+function filterStatic(Gcl::SysTF)
     if Gcl.tf(0)[1] == Inf
         throw(error("Closed Loop Transfer Function already has infinite DC gain"))
     else

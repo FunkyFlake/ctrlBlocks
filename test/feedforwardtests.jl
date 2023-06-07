@@ -6,7 +6,7 @@ using ControlSystemsBase
     plant = PT1(0.1, 1)
     ctrl = P(2)
     Gcl = closedLoop(ctrl, plant)
-    @test staticFilter(Gcl) ≈ tf([6])
+    @test filterStatic(Gcl) ≈ tf([6])
 
     ref = 2
     t = 0:0.1:10
