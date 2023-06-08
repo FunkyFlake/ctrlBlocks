@@ -27,4 +27,5 @@ using ControlSystemsBase
     Gr = PI(5, 1).tf
     @test Gff ≈ tf([25, 75, 50],[1, 10, 25]) atol=1e-3
     @test minreal(ffwdLoop(Gr, Gff, Gp), 1e-2) ≈ tf([30, 100, 125],[1, 12, 50, 100, 125]) atol=1e-3
+    #@test minreal(filterffwdLoop(Gr, Gff, Gdes, Gp), 1e-2) ≈ tf([25],[1, 10, 25]) atol=10e-3 # Test works but throws warning
 end

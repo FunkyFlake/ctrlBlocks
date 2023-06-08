@@ -9,6 +9,8 @@
 # z3: disturbance after plant
 # Gr: controller transfer function
 # Gp: plant transfer function
+# Gff: feedforward transfer function
+# Gf: filter transfer function
 ############################################################################
 # w to x, no feedback
 openLoop(Gr::TransferFunction, Gp::TransferFunction) = Gr * Gp
@@ -39,4 +41,8 @@ controlOutput(Gr::SysTF, Gp::SysTF) = Gr.tf / (1 + Gr.tf * Gp.tf)
 # w to x with feedforward
 ffwdLoop(Gr::TransferFunction, Gff::TransferFunction, Gp::TransferFunction) = Gp * (Gff + Gr) / (1 + Gr * Gp)
 ffwdLoop(Gr::SysTF, Gff::SysTF, Gp::SysTF) = Gp.tf * (Gff.tf + Gr.tf) / (1 + Gr.tf * Gp.tf)
+############################################################################
+# Loop with feedforward and filter, 2DoF regulator (see RT1 Schulz, p. 263)
+filterffwdLoop(Gr::TransferFunction, Gff::TransferFunction, Gf::TransferFunction, Gp::TransferFunction) = (Gf * Gr * Gp + Gff * Gp) / (1 + Gr * Gp) 
+filterffwdLoop(Gr::SysTF, Gff::SysTF, Gf::SysTF, Gp::SysTF) = (Gf.tf * Gr.tf * Gp.tf + Gff.tf * Gp.tf) / (1 + Gr.tf * Gp.tf)
 ############################################################################

@@ -31,6 +31,7 @@ include("loops.jl")
 export openLoop, closedLoop
 export ctrlDisturbance, outputDisturbance, errorSignal, controlOutput
 export ffwdLoop
+export filterffwdLoop
 
 include("compensation.jl")
 export compensation, serialPT1
