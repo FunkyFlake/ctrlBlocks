@@ -1,3 +1,9 @@
+# Gdes: desired transfer function
+# Gp: plant transfer function
+feedforward(Gdes::TransferFunction, Gp::TransferFunction; eps=1e-3) = minreal(Gdes / Gp, eps)
+feedforward(Gdes::SysTF, Gp::SysTF; eps=1e-3) = minreal(Gdes.tf / Gp.tf, eps)
+############################################################################
+# Static filter to get desired DC gain 
 function filterStatic(Gcl::TransferFunction)
     if Gcl(0)[1] == Inf
         throw(error("Closed Loop Transfer Function already has infinite DC gain"))
@@ -13,7 +19,6 @@ function filterStatic(Gcl::SysTF)
         return tf([1/Gcl.tf(0)[1]])
     end
 end
-
 ############################################################################
 # Dynamic Filters for step inputs
 # r: reference signal

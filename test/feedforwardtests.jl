@@ -20,4 +20,11 @@ using ControlSystemsBase
 
     w = filterSqSine(ref, t, Tend)
     @test w == ref * sin.(π/2 * min.(1, t ./ Tend)).^2
+
+    Gdes = serialPT1(5,2).tf
+    Gp = tf([1],[1,3,2])
+    Gff = feedforward(Gdes, Gp)
+    Gr = PI(5, 1).tf
+    @test Gff ≈ tf([25, 75, 50],[1, 10, 25]) atol=1e-3
+    @test minreal(ffwdLoop(Gr, Gff, Gp), 1e-2) ≈ tf([30, 100, 125],[1, 12, 50, 100, 125]) atol=1e-3
 end

@@ -30,11 +30,13 @@ export APn, setK!, setT!
 include("loops.jl")
 export openLoop, closedLoop
 export ctrlDisturbance, outputDisturbance, errorSignal, controlOutput
+export ffwdLoop
 
 include("compensation.jl")
 export compensation, serialPT1
 
 include("feedforward.jl")
+export feedforward
 export filterStatic
 export filterPT1, filterRamp, filterSqSine
 

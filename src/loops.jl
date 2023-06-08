@@ -1,4 +1,4 @@
-# Simple closed control loop
+## Simple closed control loop
 # w: input 
 # y: control output 
 # x: controlled variable 
@@ -33,4 +33,10 @@ errorSignal(Gr::SysTF, Gp::SysTF) = 1 / (1 + Gr.tf * Gp.tf)
 # w to y
 controlOutput(Gr::TransferFunction, Gp::TransferFunction) = Gr / (1 + Gr * Gp)
 controlOutput(Gr::SysTF, Gp::SysTF) = Gr.tf / (1 + Gr.tf * Gp.tf)
+############################################################################
+############################################################################
+## Loop with feedforward and no input filter
+# w to x with feedforward
+ffwdLoop(Gr::TransferFunction, Gff::TransferFunction, Gp::TransferFunction) = Gp * (Gff + Gr) / (1 + Gr * Gp)
+ffwdLoop(Gr::SysTF, Gff::SysTF, Gp::SysTF) = Gp.tf * (Gff.tf + Gr.tf) / (1 + Gr.tf * Gp.tf)
 ############################################################################
